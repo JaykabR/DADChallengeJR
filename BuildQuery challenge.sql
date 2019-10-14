@@ -46,7 +46,7 @@ CREATE TABLE Booking (
 ,   EventYear   INT             
 ,   EventMonth  NVARCHAR(3)             
 ,   EventDay    INT              
-,   DateBooked  DATE             
+,   DateBooked  DATE             NOT NULL
 ,   Payment     MONEY            CHECK (Payment > 0)
 ,   PRIMARY KEY (DateBooked)
 ,   FOREIGN KEY (TourName) REFERENCES Tour 
@@ -69,14 +69,20 @@ INSERT INTO Event (TourName, EventMonth, EventDay, EventYear, EventFee) VALUES (
 INSERT INTO Event (TourName, EventMonth, EventDay, EventYear, EventFee) VALUES ('South', 'Jan', 16, 2016, 200)
 INSERT INTO Event (TourName, EventMonth, EventDay, EventYear, EventFee) VALUES ('West', 'Jan', 29, 2016, 225)
 
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (1, 'North', 'Jan', 9, 2016, 200, 2015-12-9)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'North', 'Jan', 9, 2016, 200, 2015-12-9)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (1, 'North', 'Feb', 13, 2016, 225, 2016-01-8)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'North', 'Feb', 13, 2016, 125, 2016-01-14)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'North', 'Feb', 13, 2016, 225, 2016-02-3)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (1, 'South', 'Feb', 9, 2016, 225, 2016-12-10)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'South', 'Feb', 16, 2016, 225, 2016-12-18)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'South', 'Feb', 16, 2016, 225, 2016-01-9)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'West', 'Jan', 29, 2016, 225, 2015-12-17)
-INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'West', 'Jan', 29, 2016, 200, 2015-12-18)
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (1, 'North', 'Jan', 9, 2016, 200, '2015-12-9')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'North', 'Jan', 9, 2016, 200, '2015-12-9')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (1, 'North', 'Feb', 13, 2016, 225, '2016-01-8')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'North', 'Feb', 13, 2016, 125, '2016-01-14')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'North', 'Feb', 13, 2016, 225, '2016-02-3')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (1, 'South', 'Feb', 9, 2016, 225, '2016-12-10')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'South', 'Feb', 16, 2016, 225, '2016-12-18')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'South', 'Feb', 16, 2016, 225, '2016-01-9')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'West', 'Jan', 29, 2016, 225, '2015-12-17')
+INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'West', 'Jan', 29, 2016, 200, '2015-12-18')
 
+SELECT C.GivenName, C.Surname, T.TourName, T.Description, E.EventYear, E.EventMonth, E.EventDay, E.EventFee, B.DateBooked, B.Payment
+FROM Client C, Tour T, Event E, Booking B;
+
+SELECT Tour.TourName, COUNT(E.EventDay) AS NumBookings FROM Event;
+LEFT JOIN Tour ON Tour.Tourname = T.Tourname
+GROUP BY EventMonth;
