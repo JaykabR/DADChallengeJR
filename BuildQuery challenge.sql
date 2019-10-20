@@ -94,3 +94,33 @@ WHERE Payment >
 (SELECT AVG(Payment) FROM Booking);
 
 SELECT Q1;
+
+/*
+This Query proves that all the data in booking is valid due to no result being
+provided when exicuted. If you where to put a '=' next to the '<' then is would
+produce all booking results.
+*/
+
+SELECT EventYear
+FROM Booking
+WHERE EventYear < 2016;
+
+/*
+This Query is the opposite to Line 91's Query, it displays the result under the AVG
+of 200 which is one result being 125.
+*/
+
+SELECT *
+FROM Booking
+WHERE Payment <
+(SELECT AVG(Payment) FROM Booking);
+
+/*
+This Query displays all the clients inside the data base in number order.
+You can see that I have inputed myself and it is down the bottom becuase of the
+length of my ClientID. 
+*/
+
+SELECT *
+FROM Client
+ORDER BY len(ClientID), ClientID;
