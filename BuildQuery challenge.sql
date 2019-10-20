@@ -80,9 +80,17 @@ INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Paymen
 INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (2, 'West', 'Jan', 29, 2016, 225, '2015-12-17')
 INSERT INTO Booking (ClientId, TourName, EventMonth, EventDay, EventYear, Payment, DateBooked) VALUES (3, 'West', 'Jan', 29, 2016, 200, '2015-12-18')
 
+CREATE VIEW Q1 AS
 SELECT C.GivenName, C.Surname, T.TourName, T.Description, E.EventYear, E.EventMonth, E.EventDay, E.EventFee, B.DateBooked, B.Payment
 FROM Client C, Tour T, Event E, Booking B;
 
-SELECT Tour.TourName, COUNT(E.EventDay) AS NumBookings FROM Event;
-LEFT JOIN Tour ON Tour.Tourname = T.Tourname
-GROUP BY EventMonth;
+SELECT EventMonth, TourName, COUNT(*) as "Num Booking"
+FROM Booking
+GROUP BY EventMonth, TourName;
+
+SELECT *
+FROM Booking
+WHERE Payment >
+(SELECT AVG(Payment) FROM Booking);
+
+SELECT Q1;
